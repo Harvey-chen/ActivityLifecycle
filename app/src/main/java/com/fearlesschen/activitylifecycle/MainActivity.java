@@ -9,16 +9,21 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final static String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";
+    private static final int NORMAL_ACTIVITY = 2015;
     private Button btnDialogActivity;
     private Button btnTransparentActivity;
     private Button btnNormalActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (savedInstanceState != null) {
+            String userName = savedInstanceState.getString("userName");
+            Log.i(TAG, userName);
+        }
+        Log.i(TAG, "onCreate");
 
         btnDialogActivity = (Button) findViewById(R.id.btnDialogActivity);
         btnDialogActivity.setOnClickListener(new View.OnClickListener() {
@@ -40,45 +45,68 @@ public class MainActivity extends AppCompatActivity {
         btnNormalActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, NormalActivity.class));
+                startActivityForResult(new Intent(MainActivity.this, NormalActivity.class), NORMAL_ACTIVITY);
             }
         });
     }
 
     @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.i(TAG, "onRestoreInstanceState");
+    }
+
+    @Override
     protected void onRestart() {
-        Log.i(TAG, "onRestart");
         super.onRestart();
+        Log.i(TAG, "onRestart");
     }
 
     @Override
     protected void onStart() {
-        Log.i(TAG, "onStart");
         super.onStart();
+        Log.i(TAG, "onStart");
     }
 
     @Override
     protected void onResume() {
-        Log.i(TAG, "onResume");
         super.onResume();
+        Log.i(TAG, "onResume");
     }
 
     @Override
     protected void onPause() {
-        Log.i(TAG, "onPause");
         super.onPause();
+        Log.i(TAG, "onPause");
     }
 
     @Override
     protected void onStop() {
-        Log.i(TAG, "onStop");
         super.onStop();
+        Log.i(TAG, "onStop");
     }
 
     @Override
     protected void onDestroy() {
-        Log.i(TAG, "onDestroy");
         super.onDestroy();
+        Log.i(TAG, "onDestroy");
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(TAG, "onSaveInstanceState");
+        String userName = "Michael Jordan";
+        outState.putString("userName", userName);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == NORMAL_ACTIVITY) {
+            Log.i(TAG, "NormalActivity return result:" + resultCode);
+            Log.i(TAG, "NormalActivity return userName:" + data.getStringExtra("userName"));
+        }
+    }
 }
+

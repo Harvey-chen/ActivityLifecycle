@@ -33,4 +33,11 @@
         android:layout_width="match_parent"
         android:textAllCaps="false"
         android:text="new NormalActivity" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:saveEnabled="false"
+        android:id="@+id/editText"
+        android:hint="旋转屏幕,这里的数据会消失"/>
 </LinearLayout>
